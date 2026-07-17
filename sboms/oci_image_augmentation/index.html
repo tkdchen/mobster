@@ -21,7 +21,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -1030,11 +1030,11 @@ Examples include OCI image tags or the image's release repository.</p>
 <p>You can either augment a specific OCI image by providing the optional
 <code>--reference</code> argument, or augment SBOMs for all images in the supplied
 snapshot:</p>
-<pre><code class="language-bash">$ mobster augment oci-image --output sboms/ oci-image \
+<pre><code class="language-bash">$ mobster augment --output sboms/ oci-image \
     --reference quay.io/repo/image@sha256:&lt;digest&gt; \
     --snapshot snapshot.json
 
-$ mobster augment oci-image --output sboms/ oci-image \
+$ mobster augment --output sboms/ oci-image \
     --snapshot snapshot.json
 </code></pre>
 <h2 id="augmentation-examples">Augmentation examples</h2>
@@ -1069,7 +1069,7 @@ package for our single-arch component:</p>
 }
 </code></pre>
 <p>We can now run the command:</p>
-<pre><code class="language-bash">$ mobster augment oci-image --output sboms/ snapshot \
+<pre><code class="language-bash">$ mobster augment --output sboms/ oci-image \
     --snapshot snapshot.json
 </code></pre>
 <p>Mobster now parses the snapshot and fetches the build-time SBOM of all the

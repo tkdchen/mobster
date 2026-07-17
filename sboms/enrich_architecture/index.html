@@ -11,10 +11,6 @@
       
       
       
-        <link rel="prev" href="../download/">
-      
-      
-        <link rel="next" href="../oci_image/">
       
       
         
@@ -25,7 +21,7 @@
     
     
       
-        <title>Delete - Mobster - SBOM management tool</title>
+        <title>Mobster Enrich Architecture - Mobster - SBOM management tool</title>
       
     
     
@@ -66,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#deleting-sboms-with-mobster" class="md-skip">
+        <a href="#mobster-enrich-architecture" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Delete
+              Mobster Enrich Architecture
             
           </span>
         </div>
@@ -202,12 +198,10 @@
   
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
+      <li class="md-tabs__item">
         <a href="../sbom_lifecycle/" class="md-tabs__link">
           
   
@@ -357,31 +351,28 @@
       
   
   
-    
   
   
-  
     
     
     
     
-      
-        
-        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
             
   
   
@@ -399,7 +390,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             
@@ -526,37 +517,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Delete
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../delete/" class="md-nav__link">
         
   
   
@@ -572,37 +536,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#red-hat-trusted-profile-analyzer-tpa" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Red Hat Trusted Profile Analyzer (TPA)
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1008,30 +941,30 @@
   
 
 
-<h1 id="deleting-sboms-with-mobster">Deleting SBOMs with Mobster</h1>
-<p>The Mobster tool is capable of deleting SBOMs from multiple locations.</p>
-<h2 id="red-hat-trusted-profile-analyzer-tpa">Red Hat Trusted Profile Analyzer (TPA)</h2>
-<p>To delete an SBOM from TPA, use the <code>mobster delete tpa</code> command. In order to authenticate to TPA,
-you need to set the following environment variables with OIDC, as in the example below</p>
-<pre><code>MOBSTER_TPA_SSO_TOKEN_URL=&quot;https://example.com/auth/realms/ExampleRealm/protocol/openid-connect/token&quot;
-MOBSTER_TPA_SSO_ACCOUNT=example-account
-MOBSTER_TPA_SSO_TOKEN=example-account-token
-</code></pre>
-<p>After that you can either delete a single SBOM:</p>
-<pre><code class="language-shell">mobster delete tpa \
-    --tpa-base-url https://your-tpa-instance.com \
-    --uuid {SBOM UIID}
-</code></pre>
-<p>Or multiple SBOMs using a generic query:</p>
-<pre><code class="language-shell">mobster delete tpa \
-    --tpa-base-url https://your-tpa-instance.com \
-    --query &quot;authors~mobster&quot;
-</code></pre>
-<p>Or multiple SBOMs based on a ingestion time range:
-```shell
-mobster delete tpa \
-    --tpa-base-url https://your-tpa-instance.com \
-    --query "ingested&lt;3 months ago"</p>
+<h1 id="mobster-enrich-architecture">Mobster Enrich Architecture</h1>
+<p>Use Case: Mobster can produce SBOMs in CycloneDX format
+Steps:
+1. Matches the PURL from A to a PURL in B. Will only enrich the component for which the PURLs match
+  The OWASP hugging face tool only keeps the first 8 characters of the version. Therefore, versions of PURLS
+  are compared based ont he first 8 characters
+2. Adds OWASP AIBOM generator to tools (accounts for version 1.5 and 1.6)
+    {
+        "name": "owasp-aibom-generator",
+        "version": "1.0.2"
+    }
+3. Enriches the modelCard in the component in A
+    a) If the modelCard field does not exist, just copies the whole modelCard over from SBOM B into SBOM A
+    b) If the modelCard field does exist, performs a complete merge of model cards (preferring fields in A to B)</p>
+<p>Example 1:
+SBOM A: <a href="../../tests/sbom/test_enrich_data/llm_compress_cdx.json">LLM Compress CDX</a>
+SBOM B: <a href="../../tests/sbom/test_enrich_data/tinyllama_owasp_cdx.json">Tiny Llama SBOM</a>
+Expected Output: <a href="../../tests/sbom/test_enrich_data/enriched_sbom_cdx.json">Enriched SBOM</a>
+(just adds the whole modelCard from B into A)</p>
+<p>Example 2:
+SBOM A: <a href="../../tests/sbom/test_enrich_data/llm_compress_cdx_modelCard.json">LLM Compress CDX</a>
+SBOM B: <a href="../../tests/sbom/test_enrich_data/tinyllama_owasp_cdx.json">Tiny Llama SBOM</a>
+Expected Output: <a href="../../tests/sbom/test_enrich_data/enriched_sbom_cdx.json">Enriched SBOM</a>
+(merges two modelCards)</p>
 
 
 
